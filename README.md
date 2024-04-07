@@ -9,7 +9,7 @@ Dart-Code.flutter
 1. Choose your target device (physical device or emulator)
 2. I used physical device, so I put the reference setup with physical device.
 
-* Check physical mobile device is connected or not, run below command
+* Check physical mobile device is connected or not, run below command <br>
 `flutter devices`
 
 Note - system will show opening browser list also <br>
