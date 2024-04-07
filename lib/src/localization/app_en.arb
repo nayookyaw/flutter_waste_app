@@ -1,0 +1,6 @@
+{
+  "appTitle": "flutter_waste_app",
+  "@appTitle": {
+    "description": "The title of the application"
+  }
+}
