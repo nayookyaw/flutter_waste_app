@@ -22,10 +22,10 @@ You just choose the target device <br>
 
 # Result
 
-* Waste Data Page
+* Waste Data Page <br>
 ![alt text](./screenshoots/waste-data-home.png)
 
-* Device Health Check Page
+* Device Health Check Page <br>
 ![alt text](./screenshoots/device-check-modal.png)
 
 # References
