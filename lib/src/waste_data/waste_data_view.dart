@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_waste_app/src/common_widgets/custom_button.dart';
 import 'package:flutter_waste_app/src/common_widgets/custom_card.dart';
 import 'package:flutter_waste_app/src/settings/settings_view.dart';
+import 'package:flutter_waste_app/src/waste_data/modals/waste_data_check_modal.dart';
 import 'package:flutter_waste_app/src/waste_data/waste_data_function.dart';
 
 class WasteDataView extends StatelessWidget {
@@ -14,6 +15,7 @@ class WasteDataView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color.fromARGB(255, 65, 62, 62),
       appBar: AppBar(title: const Text("Waste Data"), actions: [
         IconButton(
             onPressed: () {
@@ -33,12 +35,11 @@ class WasteDataView extends StatelessWidget {
                     childCard: Text("water sensing threshold : 0.8")),
                 color: Color.fromARGB(255, 192, 149, 149)),
             Card(
-                child: CustomCard(
-                    childCard: CustomButton(
-                  btnText: "Check Status",
-                  onPressFunction: wasteDataFunction.actionPress,
-                )),
-                color: const Color.fromARGB(255, 209, 203, 152)),
+              child: OutlinedButton(
+                onPressed: () => wasteDataCheckModal(context),
+                child: const Text('Check Status'),
+              ),
+            ),
           ],
         ),
       ),
