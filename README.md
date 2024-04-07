@@ -23,10 +23,10 @@ You just choose the target device <br>
 # Result
 
 * Waste Data Page
-![alt text](./screenshots/waste-data-home.png)
+![alt text](./screenshoots/waste-data-home.png)
 
 * Device Health Check Page
-![alt text](./screenshots/device-check-modal.png)
+![alt text](./screenshoots/device-check-modal.png)
 
 # References
 https://www.waldo.com/blog/flutter-hello-world <br>
