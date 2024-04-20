@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_waste_app/src/waste_data/widgets/progress_bar.dart';
 
 Future<void> wasteDataCheckModal(BuildContext context) {
   return showDialog<void>(

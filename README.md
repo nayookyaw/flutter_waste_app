@@ -31,3 +31,13 @@ You just choose the target device <br>
 # References
 https://www.waldo.com/blog/flutter-hello-world <br>
 https://codelabs.developers.google.com/codelabs/flutter-codelab-first#0 <br>
+
+* flutter build references
+https://www.programsbuzz.com/article/set-androidhome-environment-variable-windows-10 <br>
+flutter config --android-sdk c:\android\sdk <br>
+
+* clean
+        $ flutter clean <br>
+        $ flutter pub get
+
+

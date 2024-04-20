@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_waste_app/src/common_widgets/custom_button.dart';
 import 'package:flutter_waste_app/src/common_widgets/custom_card.dart';
 import 'package:flutter_waste_app/src/models/sensor/sensor_data.dart';
 import 'package:flutter_waste_app/src/settings/settings_view.dart';
@@ -9,8 +8,6 @@ import 'package:pie_chart/pie_chart.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'dart:async';
-
-double maxWaterLevel = 20;
 
 List<Color> colorList = <Color>[
   const Color.fromARGB(255, 201, 198, 64),
@@ -30,6 +27,8 @@ class WasteDataView extends StatefulWidget {
 
 class _WasteDataViewState extends State<WasteDataView> {
   double currentWaterLevel = 0.0;
+  double maxWaterLevel = 20;
+
   Map<String, double> dataMap = {
     "Water Level": 0.0,
   };
@@ -59,7 +58,7 @@ class _WasteDataViewState extends State<WasteDataView> {
       }
     }
 
-    WidgetsBinding.instance!.addPostFrameCallback((_) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
       runAfterBuild();
       Timer.periodic(const Duration(seconds: 3), (timer) {
         runAfterBuild();
@@ -105,9 +104,10 @@ class _WasteDataViewState extends State<WasteDataView> {
                     childCard:
                         Text("current water level : $currentWaterLevel cm")),
                 color: const Color.fromARGB(255, 11, 201, 201)),
-            const Card(
-                child: CustomCard(childCard: Text("Max Level : 150cm")),
-                color: Color.fromARGB(255, 192, 149, 149)),
+            Card(
+                child: CustomCard(
+                    childCard: Text("current water level : $maxWaterLevel cm")),
+                color: const Color.fromARGB(255, 192, 149, 149)),
             Card(
               color: const Color.fromARGB(255, 77, 146, 59),
               child: OutlinedButton(

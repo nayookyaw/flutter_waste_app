@@ -69,7 +69,7 @@ class MyApp extends StatelessWidget {
               builder: (BuildContext context) {
                 switch (routeSettings.name) {
                   case WasteDataView.routeName:
-                    return WasteDataView();
+                    return const WasteDataView();
                   case SettingsView.routeName:
                     return SettingsView(controller: settingsController);
                   case SampleItemDetailsView.routeName:

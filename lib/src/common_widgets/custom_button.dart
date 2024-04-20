@@ -10,7 +10,7 @@ class CustomButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextButton(
       style: TextButton.styleFrom(
-        primary: const Color.fromARGB(255, 245, 247, 248),
+        iconColor: const Color.fromARGB(255, 245, 247, 248),
         backgroundColor: const Color.fromARGB(255, 55, 124, 118),
       ),
       onPressed: onPressFunction,
