@@ -8,33 +8,13 @@ import 'package:flutter_waste_app/src/waste_data/waste_data_function.dart';
 import 'package:pie_chart/pie_chart.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'dart:async';
 
-Map<String, double> dataMap = {
-  "Water Level": 10,
-};
-
-double maxWaterLevel = 150;
+double maxWaterLevel = 20;
 
 List<Color> colorList = <Color>[
   const Color.fromARGB(255, 201, 198, 64),
 ];
-
-Future<void> runAfterBuild() async {
-  print("running the API");
-  final response =
-      await http.get(Uri.parse('http://192.168.0.14:8000/api/sensor/1'));
-
-  if (response.statusCode == 200) {
-    print('data: ' + response.body);
-    String jsonString = response.body;
-    // Convert JSON string to Map
-    Map<String, dynamic> jsonResponse = json.decode(jsonString);
-
-    // Create a SensorData instance from the JSON data
-    Sensor sensorData = Sensor.fromJson(jsonResponse);
-    print(sensorData.data.details);
-  }
-}
 
 class WasteDataView extends StatefulWidget {
   const WasteDataView({
@@ -49,11 +29,43 @@ class WasteDataView extends StatefulWidget {
 }
 
 class _WasteDataViewState extends State<WasteDataView> {
+  double currentWaterLevel = 0.0;
+  Map<String, double> dataMap = {
+    "Water Level": 0.0,
+  };
+
   @override
   void initState() {
     super.initState();
+
+    Future<void> runAfterBuild() async {
+      print("running the API");
+      final response =
+          await http.get(Uri.parse('http://192.168.0.14:8000/api/sensor/1'));
+
+      if (response.statusCode == 200) {
+        print('data: ' + response.body);
+        String jsonString = response.body;
+        // Convert JSON string to Map
+        Map<String, dynamic> jsonResponse = json.decode(jsonString);
+
+        // Create a SensorData instance from the JSON data
+        Sensor sensorData = Sensor.fromJson(jsonResponse);
+        // print(sensorData.data.details);
+        double newWaterLevel = double.parse(sensorData.data.details);
+        print(newWaterLevel);
+        setState(() {
+          currentWaterLevel = newWaterLevel;
+          dataMap["Water Level"] = currentWaterLevel;
+        });
+      }
+    }
+
     WidgetsBinding.instance!.addPostFrameCallback((_) {
       runAfterBuild();
+      Timer.periodic(const Duration(seconds: 3), (timer) {
+        runAfterBuild();
+      });
     });
   }
 
@@ -89,10 +101,11 @@ class _WasteDataViewState extends State<WasteDataView> {
                 totalValue: maxWaterLevel,
               ),
             ),
-            const Card(
-                child:
-                    CustomCard(childCard: Text("current water level : 40cm")),
-                color: Color.fromARGB(255, 11, 201, 201)),
+            Card(
+                child: CustomCard(
+                    childCard:
+                        Text("current water level : $currentWaterLevel cm")),
+                color: const Color.fromARGB(255, 11, 201, 201)),
             const Card(
                 child: CustomCard(childCard: Text("Max Level : 150cm")),
                 color: Color.fromARGB(255, 192, 149, 149)),
