@@ -39,12 +39,10 @@ class _WasteDataViewState extends State<WasteDataView> {
     super.initState();
 
     Future<void> runAfterBuild() async {
-      print("running the API");
       final response =
           await http.get(Uri.parse('http://192.168.0.14:8000/api/sensor/1'));
 
       if (response.statusCode == 200) {
-        print('data: ' + response.body);
         String jsonString = response.body;
         // Convert JSON string to Map
         Map<String, dynamic> jsonResponse = json.decode(jsonString);
@@ -53,7 +51,7 @@ class _WasteDataViewState extends State<WasteDataView> {
         Sensor sensorData = Sensor.fromJson(jsonResponse);
         // print(sensorData.data.details);
         double newWaterLevel = double.parse(sensorData.data.details);
-        print(newWaterLevel);
+        // print(newWaterLevel);
         setState(() {
           currentWaterLevel = newWaterLevel;
           dataMap["Water Level"] = currentWaterLevel;
@@ -99,6 +97,7 @@ class _WasteDataViewState extends State<WasteDataView> {
                   showChartValuesInPercentage: true,
                 ),
                 totalValue: maxWaterLevel,
+                animationDuration: const Duration(milliseconds: 200),
               ),
             ),
             Card(
