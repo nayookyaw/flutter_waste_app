@@ -1,25 +1,61 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_waste_app/src/common_widgets/custom_button.dart';
 import 'package:flutter_waste_app/src/common_widgets/custom_card.dart';
+import 'package:flutter_waste_app/src/models/sensor/sensor_data.dart';
 import 'package:flutter_waste_app/src/settings/settings_view.dart';
 import 'package:flutter_waste_app/src/waste_data/modals/waste_data_check_modal.dart';
 import 'package:flutter_waste_app/src/waste_data/waste_data_function.dart';
 import 'package:pie_chart/pie_chart.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 Map<String, double> dataMap = {
   "Water Level": 10,
 };
 
+double maxWaterLevel = 150;
+
 List<Color> colorList = <Color>[
   const Color.fromARGB(255, 201, 198, 64),
 ];
 
-class WasteDataView extends StatelessWidget {
+Future<void> runAfterBuild() async {
+  print("running the API");
+  final response =
+      await http.get(Uri.parse('http://192.168.0.14:8000/api/sensor/1'));
+
+  if (response.statusCode == 200) {
+    print('data: ' + response.body);
+    String jsonString = response.body;
+    // Convert JSON string to Map
+    Map<String, dynamic> jsonResponse = json.decode(jsonString);
+
+    // Create a SensorData instance from the JSON data
+    Sensor sensorData = Sensor.fromJson(jsonResponse);
+    print(sensorData.data.details);
+  }
+}
+
+class WasteDataView extends StatefulWidget {
   const WasteDataView({
     Key? key,
   }) : super(key: key);
+
   static const routeName = "/";
   static WasteDataFunction wasteDataFunction = WasteDataFunction();
+
+  @override
+  _WasteDataViewState createState() => _WasteDataViewState();
+}
+
+class _WasteDataViewState extends State<WasteDataView> {
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance!.addPostFrameCallback((_) {
+      runAfterBuild();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +86,7 @@ class WasteDataView extends StatelessWidget {
                 chartValuesOptions: const ChartValuesOptions(
                   showChartValuesInPercentage: true,
                 ),
-                totalValue: 20,
+                totalValue: maxWaterLevel,
               ),
             ),
             const Card(
