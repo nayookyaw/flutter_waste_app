@@ -15,14 +15,18 @@ class WasteDataView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 65, 62, 62),
-      appBar: AppBar(title: const Text("Waste Data"), actions: [
-        IconButton(
-            onPressed: () {
-              Navigator.restorablePushNamed(context, SettingsView.routeName);
-            },
-            icon: const Icon(Icons.settings))
-      ]),
+      backgroundColor: const Color.fromARGB(255, 247, 247, 247),
+      appBar: AppBar(
+          title: const Text("Sensor Level Data"),
+          backgroundColor: const Color.fromARGB(255, 89, 214, 126),
+          actions: [
+            IconButton(
+                onPressed: () {
+                  Navigator.restorablePushNamed(
+                      context, SettingsView.routeName);
+                },
+                icon: const Icon(Icons.settings))
+          ]),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -35,9 +39,15 @@ class WasteDataView extends StatelessWidget {
                     childCard: Text("water sensing threshold : 0.8")),
                 color: Color.fromARGB(255, 192, 149, 149)),
             Card(
+              color: const Color.fromARGB(255, 77, 146, 59),
               child: OutlinedButton(
                 onPressed: () => wasteDataCheckModal(context),
-                child: const Text('Check Status'),
+                child: const Text(
+                  'Check Status',
+                  style: TextStyle(
+                    color: Colors.white,
+                  ),
+                ),
               ),
             ),
           ],
